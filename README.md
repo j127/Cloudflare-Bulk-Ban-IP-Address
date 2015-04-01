@@ -4,7 +4,7 @@
 
 ## About
 
-This simple Python 3 script bans spammer IP addresses in bulk. It was written on Ubuntu 14.10.
+This simple Python 3 script bans spammer IP addresses in bulk by reporting them to [Cloudflare's API](https://www.cloudflare.com/docs/client-api.html). It was written on Ubuntu 14.10.
 
 It reads from a text file that contains a list of IP addresses, one per line. ~~It logs results to a text file.~~
 

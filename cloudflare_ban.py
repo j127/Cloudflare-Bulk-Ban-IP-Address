@@ -21,7 +21,7 @@ def post_to_cloudflare(api_token, api_email_address, action, ip_address):
     tkn -- API token
     email -- the email address associated with the Cloudflare account
     a -- action can be whitelist ("wl"), ban ("ban"), or remove ("nul")
-    key -- the IP address to act on
+    key -- the IP address that is being reported
     
     """
     payload = {
@@ -37,7 +37,7 @@ def post_to_cloudflare(api_token, api_email_address, action, ip_address):
     print("Printing response: ", response)
 
 def read_file_and_ban():
-    """Reads IP addresses from a file and bans them."""
+    """Reads IP addresses from a file and bans them via Cloudflare."""
     
     f = open('banned_ips.txt')
     for line in f:
