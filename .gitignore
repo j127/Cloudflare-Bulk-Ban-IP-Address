@@ -1,2 +1,5 @@
 *~
 *.swp
+*.pyc
+__pycache__
+*.log
