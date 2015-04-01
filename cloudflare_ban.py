@@ -5,26 +5,12 @@ import logging
 import requests
 import cf_settings
 
-# Allow changing of environment variable names -- for later
-CF_API_TOKEN = "CF_API_TOKEN"
-CF_EMAIL_ADDRESS = "CF_EMAIL_ADDRESS"
-
-# Temporary
+# Get the API credentials from cf_settings.py
 api_token = cf_settings.api_token
 api_email_address = cf_settings.api_email_address
 
-# Configure logfile
+# Configure logfile -- comment this out if you don't want a logfile
 logging.basicConfig(filename="cloudflare_bans.log", format="%(asctime)s\t%(levelname)s:\t%(message)s", level=logging.INFO)
-
-def get_api_credentials():
-    """Check if API credentials are saved in environment variables."""
-
-    api_token = os.environ.get[CF_API_TOKEN]
-    api_email_address = os.environ.get[CF_EMAIL_ADDRESS]
-
-def save_api_tokens(save_status):
-    """A way to save API credentials as environment variables on servers."""
-    pass
 
 def post_to_cloudflare(api_token, api_email_address, action, ip_address):                     
     """Post the the Cloudflare API.
@@ -46,23 +32,20 @@ def post_to_cloudflare(api_token, api_email_address, action, ip_address):
 
     r = requests.post("https://www.cloudflare.com/api_json.html", data=payload)
     response = r.text
-    print("Printing response: ", response)
     response_dict = json.loads(response)
+    print("Printing response: ", response)
+
     if response_dict["result"] != "success":
         logging.warning("Something went wrong with the response for ", response_dict["ip"])
     else:
-        logging.info("Successfully banned IP")
-
+        logging.info("Successfully banned IP", response_dict["ip"])
 
 def read_file_and_ban():
     f = open('banned_ips.txt')
     for line in f:
-        print("About to ban: ", line.strip())
-        post_to_cloudflare(api_token, api_email_address, "ban", line.strip())
-        time.sleep(1)
+        cleaned_line = line.strip()
+        print("About to ban: ", cleaned_line)
+        post_to_cloudflare(api_token, api_email_address, "ban", cleaned_line)
+        time.sleep(0.5) # ensure that it stays under 1,200 requests in five minutes. This limits it to 600.
     f.close()
 
-# save_status = input("Do you want to save your API credentials as environment variables? [y/N]")
-# save_api_tokens(save_status)
-# if "y" in save_status.lower():
-# save_api_tokens()
