@@ -12,12 +12,11 @@ For now, this is just designed to bulk-ban IP addresses on Cloudflare. Maybe lat
 
 ## Usage
 
+1. In a Python 3 virtualenv: `pip install -r requirements`
 1. Navigate to the directory where the script is.
-2. Put IP addresses in a file called banned_ips.txt, one per line
-3. Put API credentials into cf_settings.py. See the cf_settings.example.py file for an example.
-4. Type `python3` to start Python
-5. Import the code: `import cloudflare_ban`
-6. Run the function: `cloudflare_ban.read_file_and_ban()`
-7. The script will write output to the screen.
-8. Check [Cloudflare](https://www.cloudflare.com/threat-control) to see the banned IPs.
+1. Put IP addresses in a file called banned_ips.txt, one per line
+1. Put API credentials into cf_settings.py. See the cf_settings.example.py file for an example.
+1. Type `python cloudflare_ban.py` to run the script and ban the IPs.
+1. The script will write output to the screen.
+1. Check [Cloudflare](https://www.cloudflare.com/threat-control) to see the banned IPs.
 

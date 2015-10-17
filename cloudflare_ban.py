@@ -47,3 +47,6 @@ def read_file_and_ban():
         time.sleep(0.5) # ensure that it stays under 1,200 requests in five minutes. This limits it to 600.
     f.close()
 
+if __name__ == '__main__':
+    read_file_and_ban()
+
